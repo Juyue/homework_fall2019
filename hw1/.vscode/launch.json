@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "python: BC",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\cs285\\scripts\\run_hw1_behavior_cloning.py",
+            "args": ["--expert_policy_file", "${workspaceFolder}\\cs285\\policies\\experts\\Ant.pkl",
+                     "--env_name", "Ant-v2", 
+                     "--exp_name", "test_dagger_ant", 
+                     "--n_iter", "10", 
+                     "--do_dagger",
+                     "--expert_data", "${workspaceFolder}\\cs285\\expert_data\\expert_data_Ant-v2.pkl"], 
+            "console": "integratedTerminal"
+        }
+    ]
+}

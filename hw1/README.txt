@@ -7,9 +7,15 @@ $ python setup.py develop
 ##############################################
 
 2)install mujoco:
+before installing mujoco, 
+
+$ sudo apt install libgl1-mesa-dev libgl1-mesa-glx libglfw3
+$ sudo apt-get install libosmesa6-dev
+$ sudo apt-get install patchelf
+
 $ cd ~
 $ mkdir .mujoco
-$ cd <location_of_your_mjkey.txt>
+$ cd <location_of_your_mjkey.txt
 $ cp mjkey.txt ~/.mujoco/
 $ cd <this_repo>/downloads
 $ cp -r mjpro150 ~/.mujoco/
@@ -37,7 +43,6 @@ $ bash Anaconda2-5.2.0-Linux-x86_64.sh #file name might be slightly different, b
 
 Note that this install will modify the PATH variable in your bashrc.
 You need to open a new terminal for that path change to take place (to be able to find 'conda' in the next step).
-
 ii) create a conda env that will contain python 3:
 $ conda create -n cs285_env python=3.5
 
