@@ -107,6 +107,11 @@ class RL_Trainer(object):
             else:
                 self.log_metrics = False
 
+            if (itr % self.params['scalar_log_freq'] * 50) == 0:
+                self.log_actor = True
+            else:
+                self.log_actor = False
+
             # collect trajectories, to be used for training
             training_returns = self.collect_training_trajectories(itr,
                                 initial_expertdata, collect_policy,
@@ -130,7 +135,8 @@ class RL_Trainer(object):
                 # perform logging
                 print('\nBeginning logging procedure...')
                 self.perform_logging(itr, paths, eval_policy, train_video_paths, loss_val)
-
+            
+            if self.log_actor:
                 # save policy
                 print('\nSaving agent\'s actor...')
                 self.agent.actor.save(self.params['logdir'] + '/policy_itr_'+str(itr))
