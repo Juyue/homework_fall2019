@@ -1,0 +1,2 @@
+ECHO cd Dropbox\Deep_Reinforcement_Learning\DRL_Homework\hw1
+conda activate drl_venv

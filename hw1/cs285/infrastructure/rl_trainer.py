@@ -122,14 +122,14 @@ class RL_Trainer(object):
             self.agent.add_to_replay_buffer(paths)
 
             # train agent (using sampled data from replay buffer)
-            self.train_agent() ## TODO implement this function below
+            loss_val = self.train_agent() ## TODO implement this function below
 
             # log/save
             if self.log_video or self.log_metrics:
 
                 # perform logging
                 print('\nBeginning logging procedure...')
-                self.perform_logging(itr, paths, eval_policy, train_video_paths)
+                self.perform_logging(itr, paths, eval_policy, train_video_paths, loss_val)
 
                 # save policy
                 print('\nSaving agent\'s actor...')
@@ -158,7 +158,7 @@ class RL_Trainer(object):
 
                 # collect data, batch_size is the number of transitions you want to collect.
         if itr == 0:
-            print(load_initial_expertdata)
+            print("\nLoading initial expert data", load_initial_expertdata)
             with open(load_initial_expertdata, 'rb') as f:
                 paths = pickle.loads(f.read())
             return paths, 0, None
@@ -193,8 +193,8 @@ class RL_Trainer(object):
             # TODO use the sampled data for training
             # HINT: use the agent's train function
             # HINT: print or plot the loss for debugging!
-            self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
-            #print(train_step)
+            loss_val = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
+            return loss_val
             #print(train_step, self.sess.run(self.agent.actor.loss))
 
     def do_relabel_with_expert(self, expert_policy, paths):
@@ -203,13 +203,14 @@ class RL_Trainer(object):
         # TODO relabel collected obsevations (from our policy) with labels from an expert policy
         # HINT: query the policy (using the get_action function) with paths[i]["observation"]
         # and replace paths[i]["action"] with these expert labels
-
+        for path in paths:
+            path['action'] = expert_policy.get_action(path['observation'])
         return paths
 
     ####################################
     ####################################
 
-    def perform_logging(self, itr, paths, eval_policy, train_video_paths):
+    def perform_logging(self, itr, paths, eval_policy, train_video_paths, loss_val):
 
         # collect eval trajectories, for logging
         print("\nCollecting data for eval...")
@@ -253,6 +254,8 @@ class RL_Trainer(object):
 
             logs["Train_EnvstepsSoFar"] = self.total_envsteps
             logs["TimeSinceStart"] = time.time() - self.start_time
+
+            logs['Train_Loss_mean'] = np.mean(loss_val)
 
 
             if itr == 0:

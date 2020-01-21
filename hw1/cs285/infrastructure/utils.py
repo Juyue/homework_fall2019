@@ -62,7 +62,7 @@ def sample_trajectories(env, policy, min_timesteps_per_batch, max_path_length, r
     paths = []
     while timesteps_this_batch < min_timesteps_per_batch:
         path = sample_trajectory(env, policy, max_path_length, render, render_mode)
-        timesteps_this_batch = get_pathlength(path)
+        timesteps_this_batch += get_pathlength(path)
         paths.append(path)
 
     return paths, timesteps_this_batch

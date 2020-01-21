@@ -112,7 +112,7 @@ def main():
     ###################
     ### RUN TRAINING
     ###################
-
+    
     trainer = BC_Trainer(params)
     trainer.run_training_loop()
 
