@@ -56,5 +56,5 @@ def collect_experiment_result(filepath):
                      'loss':loss_val}
     return output_result
 
-filepath = os.path.join('D:\Documents\JuyueFiles\Learning\DRL_Homework\hw1\cs285\data\dagger_test_dagger_ant_Ant-v2_20-01-2020_14-58-21')
-analyze_experiment_result(filepath)
+# filepath = os.path.join('D:\Documents\JuyueFiles\Learning\DRL_Homework\hw1\cs285\data\dagger_test_dagger_ant_Ant-v2_20-01-2020_14-58-21')
+# analyze_experiment_result(filepath)
