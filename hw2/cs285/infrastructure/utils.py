@@ -43,7 +43,7 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
         next_obs.append(ob)
         rewards.append(rew)
 
-        # TODO end the rollout if the rollout ended 
+        # end the rollout if the rollout ended 
         # HINT: rollout can end due to done, or due to max_path_length
         rollout_done = done or steps > max_path_length # HINT: this is either 0 or 1
         terminals.append(rollout_done)
@@ -57,7 +57,6 @@ def sample_trajectories(env, policy, min_timesteps_per_batch, max_path_length, r
     """
         Collect rollouts until we have collected min_timesteps_per_batch steps.
 
-        TODO implement this function
         Hint1: use sample_trajectory to get each path (i.e. rollout) that goes into paths
         Hint2: use get_pathlength to count the timesteps collected in each path
     """
@@ -74,7 +73,6 @@ def sample_n_trajectories(env, policy, ntraj, max_path_length, render=False, ren
     """
         Collect ntraj rollouts.
 
-        TODO implement this function
         Hint1: use sample_trajectory to get each path (i.e. rollout) that goes into paths
     """
     paths = []
@@ -114,8 +112,8 @@ def convert_listofrollouts(paths):
     terminals = np.concatenate([path["terminal"] for path in paths])
     concatenated_rewards = np.concatenate([path["reward"] for path in paths])
     unconcatenated_rewards = [path["reward"] for path in paths]
+
     return observations, actions, next_observations, terminals, concatenated_rewards, unconcatenated_rewards
-    return observations, actions, rewards, next_observations, terminals
 
 ############################################
 ############################################
