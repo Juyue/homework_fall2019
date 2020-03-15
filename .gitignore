@@ -3,4 +3,4 @@ cs285.egg-info/
 __pycache__/
 data/
 hw1/.vscode/settings.json
-hw1/.vscode/lauch.json
+hw1/.vscode/launch.json
