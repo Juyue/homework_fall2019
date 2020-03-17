@@ -34,14 +34,17 @@ class ACAgent(BaseAgent):
 
     def estimate_advantage(self, ob_no, next_ob_no, re_n, terminal_n):
         
-        # TODO Implement the following pseudocode:
+        # Implement the following pseudocode:
             # 1) query the critic with ob_no, to get V(s)
             # 2) query the critic with next_ob_no, to get V(s')
             # 3) estimate the Q value as Q(s, a) = r(s, a) + gamma*V(s')
             # HINT: Remember to cut off the V(s') term (ie set it to 0) at terminal states (ie terminal_n=1)
             # 4) calculate advantage (adv_n) as A(s, a) = Q(s, a) - V(s)
-        
-        adv_n = TODO
+
+        v_values = self.critic.forward(ob_no) 
+        v_pl1_values = self.critic.forward(next_ob_no)
+        q_values = re_n + self.gamma * v_pl1_values * (1 - terminal_n)
+        adv_n = q_values - v_values
 
         if self.standardize_advantages:
             adv_n = (adv_n - np.mean(adv_n)) / (np.std(adv_n) + 1e-8)
@@ -49,7 +52,7 @@ class ACAgent(BaseAgent):
 
     def train(self, ob_no, ac_na, re_n, next_ob_no, terminal_n):
         
-        # TODO Implement the following pseudocode:
+        # Implement the following pseudocode:
             # for agent_params['num_critic_updates_per_agent_update'] steps,
             #     update the critic
 
@@ -57,12 +60,15 @@ class ACAgent(BaseAgent):
 
             # for agent_params['num_actor_updates_per_agent_update'] steps,
             #     update the actor
-        
-        TODO
-
         loss = OrderedDict()
-        loss['Critic_Loss'] = TODO  # put final critic loss here
-        loss['Actor_Loss'] = TODO  # put final actor loss here
+        for _ in range(self.agent_params['num_critic_updates_per_agent_update']):
+            loss['Critic_Loss'] = self.critic.update(ob_no, next_ob_no, re_n, terminal_n)   # put final critic loss here
+
+        advantage = self.estimate_advantage(ob_no, next_ob_no, re_n, terminal_n)
+
+        for _ in range(self.agent_params['num_actor_updates_per_agent_update']):
+            loss['Actor_Loss'] = self.actor.update(ob_no, ac_na, advantage) # put final actor loss here
+
         return loss
 
     def add_to_replay_buffer(self, paths):

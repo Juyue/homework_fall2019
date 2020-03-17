@@ -189,26 +189,21 @@ class RL_Trainer(object):
                 # ``` return loaded_paths, 0, None ```
 
                 # collect data, batch_size is the number of transitions you want to collect.
-        if itr == 0:
-            print("\nLoading initial expert data", load_initial_expertdata)
-            with open(load_initial_expertdata, 'rb') as f:
-                paths = pickle.loads(f.read())
-            return paths, 0, None
 
         # TODO collect data to be used for training
         # HINT1: use sample_trajectories from utils
         # HINT2: you want each of these collected rollouts to be of length self.params['ep_len']
         
-        print("\nCollecting data to be used for training...")
+        # print("\nCollecting data to be used for training...")
         paths, envsteps_this_batch = sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'])
 
         # collect more rollouts with the same policy, to be saved as videos in tensorboard
         # note: here, we collect MAX_NVIDEO rollouts, each of length MAX_VIDEO_LEN
         train_video_paths = None
-        if self.log_video:
-            print('\nCollecting train rollouts to be used for saving videos...')
-            ## TODO look in utils and implement sample_n_trajectories
-            train_video_paths = sample_n_trajectories(self.env, collect_policy, MAX_NVIDEO, MAX_VIDEO_LEN, True)
+        if self.logvideo:
+            print('\ncollecting train rollouts to be used for saving videos...')
+            ## todo look in utils and implement sample_n_trajectories
+            train_video_paths = sample_n_trajectories(self.env, collect_policy, max_nvideo, max_video_len, true)
 
         return paths, envsteps_this_batch, train_video_paths
 
