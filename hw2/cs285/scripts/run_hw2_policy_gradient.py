@@ -57,7 +57,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--env_name', type=str)
     parser.add_argument('--exp_name', type=str, default='todo')
-    parser.add_argument('--n_iter', '-n', type=int, default=200)
+    parser.add_argument('--n_iter', '-n', type=int, default=100)
         
     parser.add_argument('--reward_to_go', '-rtg', action='store_true')
     parser.add_argument('--nn_baseline', action='store_true')
@@ -75,7 +75,7 @@ def main():
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--use_gpu', '-gpu', action='store_true')
     parser.add_argument('--which_gpu', '-gpu_id', default=0)
-    parser.add_argument('--video_log_freq', type=int, default=-1)   # video log disabled
+    parser.add_argument('--video_log_freq', type=int, default=1)   # video log disabled
     parser.add_argument('--scalar_log_freq', type=int, default=1)
 
     parser.add_argument('--save_params', action='store_true')

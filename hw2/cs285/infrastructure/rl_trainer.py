@@ -95,7 +95,7 @@ class RL_Trainer(object):
             print("\n\n********** Iteration %i ************"%itr)
 
             # decide if videos should be rendered/logged at this iteration
-            if itr % self.params['video_log_freq'] == 0 and self.params['video_log_freq'] != -1:
+            if itr % self.params['video_log_freq'] == 0 and self.params['video_log_freq'] != -1 and itr != 0:
                 self.log_video = True
             else:
                 self.log_video = False
@@ -154,19 +154,6 @@ class RL_Trainer(object):
             envsteps_this_batch: the sum over the numbers of environment steps in paths
             train_video_paths: paths which also contain videos for visualization purposes
         """
-
-        # decide whether to load training data or use
-        # HINT: depending on if it's the first iteration or not,
-            # decide whether to either
-                # load the data. In this case you can directly return as follows
-                # ``` return loaded_paths, 0, None ```
-
-                # collect data, batch_size is the number of transitions you want to collect.
-        if itr == 0:
-            print("\nLoading initial expert data", load_initial_expertdata)
-            with open(load_initial_expertdata, 'rb') as f:
-                paths = pickle.loads(f.read())
-            return paths, 0, None
 
         # collect data to be used for training
         # HINT1: use sample_trajectories from utils
