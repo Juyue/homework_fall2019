@@ -63,11 +63,12 @@ def lander_model(obs, num_actions, scope, reuse=False):
             out = layers.fully_connected(out, num_outputs=64, activation_fn=tf.nn.relu)
             out = layers.fully_connected(out, num_outputs=64, activation_fn=tf.nn.relu)
             out = layers.fully_connected(out, num_outputs=num_actions, activation_fn=None)
-
+        
         return out
 
 
 def atari_model(img_input, num_actions, scope, reuse=False):
+    print('define atari_mode scope is {}, reuse is {}'.format(scope, reuse))
     with tf.variable_scope(scope, reuse=reuse):
         out = tf.cast(img_input, tf.float32) / 255.0
         with tf.variable_scope("convnet"):
@@ -79,7 +80,8 @@ def atari_model(img_input, num_actions, scope, reuse=False):
         with tf.variable_scope("action_value"):
             out = layers.fully_connected(out, num_outputs=512, activation_fn=tf.nn.relu)
             out = layers.fully_connected(out, num_outputs=num_actions, activation_fn=None)
-
+        
+        print(out)
         return out
 
 def atari_exploration_schedule(num_timesteps):
