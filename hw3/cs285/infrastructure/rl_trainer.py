@@ -209,6 +209,7 @@ class RL_Trainer(object):
 
 
     def train_agent(self):
+        losses = []
         for train_step in range(self.params['num_agent_train_steps_per_iter']):
 
             # TODO sample some data from the data buffer
@@ -220,7 +221,8 @@ class RL_Trainer(object):
             # HINT: use the agent's train function
             # HINT: print or plot the loss for debugging!
             loss_val = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
-            return loss_val
+            losses.append(loss_val)
+        return losses
             #print(train_step, self.sess.run(self.agent.actor.loss))
 
     ####################################

@@ -1,0 +1,50 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+
+        {
+            "name": "python: mb-ff",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/cs285/scripts/run_hw4_mb.py",
+            "args": [
+                     "--exp_name", "cheetah_n500_arch1*32",
+                     "--env_name", "cheetah-cs285-v0",
+                     "--add_sl_noise", 
+                     "--n_iter", "100",
+                     "--batch_size_initial", "20000",
+                     "--num_agent_train_steps_per_iter", "500",
+                     "--n_layer", "1",
+		             "--size", "32",
+		             "--scalar_log_freq", "1",
+                     "--video_log_freq", "-1",
+	    ],
+            "console": "integratedTerminal"
+        },
+
+        {
+            "name": "python: actor-critic",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/cs285/scripts/run_hw3_actor_critic.py",
+            "args": [
+                     "--env_name", "CartPole-v0",
+                     "-n", "100", 
+                     "-b", "1000", 
+                     "-ntu", "10", 
+                     "-ngsptu", "10", 
+                     "--exp_name", "test_cart_pole_10_10"],
+            "console": "integratedTerminal"
+        }
+    ]
+}
